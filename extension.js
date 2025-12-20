@@ -9,29 +9,67 @@ const NAUTILUS_EXT_DIR = GLib.build_filenamev([
     'nautilus-python',
     'extensions',
 ]);
-const NAUTILUS_LINK_NAME = 'foldersize.py';
-const PYTHON_FILENAMES = ['foldersize', 'folder_size'];
-const PY_CACHE_DIR = GLib.build_filenamev([NAUTILUS_EXT_DIR, '__pycache__']);
+const NEMO_EXT_DIR = GLib.build_filenamev([
+    GLib.get_home_dir(),
+    '.local',
+    'share',
+    'nemo-python',
+    'extensions',
+]);
+const CAJA_EXT_DIR = GLib.build_filenamev([
+    GLib.get_home_dir(),
+    '.local',
+    'share',
+    'caja-python',
+    'extensions',
+]);
+const PYTHON_FILENAMES = ['foldersize', 'folder_size', 'foldersize_nemo', 'foldersize_caja'];
+const FILE_MANAGER_HOOKS = [
+    {
+        id: 'Nautilus',
+        extDir: NAUTILUS_EXT_DIR,
+        linkName: 'foldersize.py',
+        targetName: 'foldersize.py',
+    },
+    {
+        id: 'Nemo',
+        extDir: NEMO_EXT_DIR,
+        linkName: 'foldersize_nemo.py',
+        targetName: 'foldersize_nemo.py',
+    },
+    {
+        id: 'Caja',
+        extDir: CAJA_EXT_DIR,
+        linkName: 'foldersize_caja.py',
+        targetName: 'foldersize_caja.py',
+    },
+];
 
 export default class FolderSizeExtension extends Extension {
     enable() {
-        this._installNautilusHook();
+        this._installHooks();
     }
 
     disable() {
-        this._removeNautilusHook();
+        this._removeHooks();
     }
 
-    _installNautilusHook() {
+    _installHooks() {
+        for (const hook of FILE_MANAGER_HOOKS) {
+            this._installHook(hook);
+        }
+    }
+
+    _installHook({ id, extDir, linkName, targetName }) {
         try {
-            GLib.mkdir_with_parents(NAUTILUS_EXT_DIR, 0o755);
+            GLib.mkdir_with_parents(extDir, 0o755);
         } catch (e) {
-            logError(e, 'FolderSize: Failed to create Nautilus extension directory');
+            logError(e, `FolderSize: Failed to create ${id} extension directory`);
             return;
         }
 
-        const target = GLib.build_filenamev([this.path, NAUTILUS_LINK_NAME]);
-        const linkPath = GLib.build_filenamev([NAUTILUS_EXT_DIR, NAUTILUS_LINK_NAME]);
+        const target = GLib.build_filenamev([this.path, targetName]);
+        const linkPath = GLib.build_filenamev([extDir, linkName]);
         const linkFile = Gio.File.new_for_path(linkPath);
 
         try {
@@ -52,18 +90,24 @@ export default class FolderSizeExtension extends Extension {
                 linkFile.delete(null);
             }
         } catch (e) {
-            logError(e, 'FolderSize: Failed to clean up existing Nautilus link');
+            logError(e, `FolderSize: Failed to clean up existing ${id} link`);
         }
 
         try {
             linkFile.make_symbolic_link(target, null);
         } catch (e) {
-            logError(e, 'FolderSize: Failed to link Nautilus extension');
+            logError(e, `FolderSize: Failed to link ${id} extension`);
         }
     }
 
-    _removeNautilusHook() {
-        const linkPath = GLib.build_filenamev([NAUTILUS_EXT_DIR, NAUTILUS_LINK_NAME]);
+    _removeHooks() {
+        for (const hook of FILE_MANAGER_HOOKS) {
+            this._removeHook(hook);
+        }
+    }
+
+    _removeHook({ id, extDir, linkName }) {
+        const linkPath = GLib.build_filenamev([extDir, linkName]);
         const linkFile = Gio.File.new_for_path(linkPath);
 
         try {
@@ -71,14 +115,15 @@ export default class FolderSizeExtension extends Extension {
                 linkFile.delete(null);
             }
         } catch (e) {
-            logError(e, 'FolderSize: Failed to remove Nautilus link');
+            logError(e, `FolderSize: Failed to remove ${id} link`);
         }
 
-        this._cleanupPyCache();
+        this._cleanupPyCache(extDir, id);
     }
 
-    _cleanupPyCache() {
-        const cacheDir = Gio.File.new_for_path(PY_CACHE_DIR);
+    _cleanupPyCache(extDir, id) {
+        const cacheDirPath = GLib.build_filenamev([extDir, '__pycache__']);
+        const cacheDir = Gio.File.new_for_path(cacheDirPath);
 
         if (!cacheDir.query_exists(null)) {
             return;
@@ -93,7 +138,7 @@ export default class FolderSizeExtension extends Extension {
                 null
             );
         } catch (e) {
-            logError(e, 'FolderSize: Failed to list Nautilus pycache');
+            logError(e, `FolderSize: Failed to list ${id} pycache`);
             return;
         }
 
@@ -111,7 +156,7 @@ export default class FolderSizeExtension extends Extension {
                 try {
                     cacheDir.get_child(name).delete(null);
                 } catch (deleteError) {
-                    logError(deleteError, `FolderSize: Failed to delete pycache ${name}`);
+                    logError(deleteError, `FolderSize: Failed to delete ${id} pycache ${name}`);
                 }
             }
         } finally {

@@ -6,23 +6,41 @@
 
 [English](README.md) | [Deutsch](README.de.md) | [Espanol](README.es.md)
 
-Zeigt Ordnergrößen in der Nautilus-Listenansicht und im Kontextmenü. Die GNOME-Shell-Erweiterung verwaltet den Nautilus-Python-Hook: beim Aktivieren wird der Symlink angelegt, beim Deaktivieren entfernt.
+Zeigt Ordnergrößen in der Nautilus-Listenansicht und im Kontextmenü, optional auch per Python-Hooks für Nemo und Caja. Die GNOME-Shell-Erweiterung verwaltet die File-Manager-Hooks: beim Aktivieren werden die Symlinks angelegt, beim Deaktivieren entfernt.
 
 ## Voraussetzungen
 - GNOME Shell 45–48
 - Nautilus mit nautilus-python
+- Nemo mit nemo-python (optional)
+- Caja mit caja-python (optional)
 - `du` im PATH (coreutils)
 
 ## Installation (nur aktueller Benutzer)
+Empfohlen:
+```
+./install.sh
+```
+Standardmäßig wird ein Symlink verwendet; für eine Kopie `./install.sh --copy`.
+
+Manuelle Schritte:
 1) Ordner nach `~/.local/share/gnome-shell/extensions/foldersize@pappmann.com` kopieren.
 2) Schemas kompilieren: `glib-compile-schemas ~/.local/share/gnome-shell/extensions/foldersize@pappmann.com/schemas`.
 3) GNOME Shell neu starten (Wayland: ab- und anmelden; X11: Alt+F2, `r`).
 4) Aktivieren: `gnome-extensions enable foldersize@pappmann.com` oder über die Extensions-App. Das legt den Nautilus-Symlink automatisch an.
 5) Nautilus neu starten: `nautilus -q`.
+6) Optional (Nemo/Caja): `./install-hooks.sh` ausführen, um Symlinks für `foldersize_nemo.py` und `foldersize_caja.py` zu installieren (Pfade: `~/.local/share/nemo-python/extensions` und `~/.local/share/caja-python/extensions`).
 
 ## Deaktivieren und Entfernen
+Empfohlen:
+```
+./uninstall.sh
+```
+Mit `--no-disable`, `--no-hooks`, `--no-remove` oder `--no-nautilus` lassen sich Schritte überspringen.
+
+Manuelle Schritte:
 - Deaktivieren in Extensions oder mit `gnome-extensions disable foldersize@pappmann.com`. Dadurch wird der Nautilus-Symlink gelöscht und passende `__pycache__`-Einträge bereinigt; Nautilus danach neu starten.
 - Vollständig entfernen: `~/.local/share/gnome-shell/extensions/foldersize@pappmann.com` löschen.
+- Optional (Nemo/Caja): `./uninstall-hooks.sh` ausführen, um die Python-Extension-Links zu entfernen.
 
 ## Übersetzungen
 `make -C ~/.local/share/gnome-shell/extensions/foldersize@pappmann.com` ausführen, um `.po` zu `.mo` zu kompilieren.
