@@ -6,5 +6,5 @@
   "version": 1,
   "shell-version": ["45", "46", "47", "48"],
   "settings-schema": "org.gnome.shell.extensions.foldersize",
-  "url": "https://ço.de"
+  "url": "https://github.com/shell-extensions/foldersize"
 }
