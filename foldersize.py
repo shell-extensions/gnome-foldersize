@@ -222,6 +222,7 @@ class FolderSize(GObject.GObject,
     _scan_enabled = CFG["auto_scan"]
     _cache = OrderedDict()  # LRU cache: { path: (timestamp, size, running, process, queued, start_time) }
     _file_refs = {}         # { path: Nautilus.FileInfo }
+    _settings_signal_id = None
 
     def __init__(self):
         if not FolderSize._workers_started:
@@ -231,6 +232,14 @@ class FolderSize(GObject.GObject,
             FolderSize._workers_started = True
 
         GLib.timeout_add_seconds(ROTATE_INTERVAL, self._rotate_symbols)
+        if GSETTINGS and FolderSize._settings_signal_id is None:
+            try:
+                FolderSize._settings_signal_id = GSETTINGS.connect(
+                    "changed::auto-scan",
+                    self._on_auto_scan_changed,
+                )
+            except Exception as e:
+                logger.warning(f"Failed to subscribe to auto-scan changes: {e}")
 
     def _evict_cache_if_needed(self):
         """Remove oldest cache entries if cache size exceeds limit (LRU)."""
@@ -546,6 +555,22 @@ class FolderSize(GObject.GObject,
 
         human = f"{size:.{DEC_PLACES}f}".rstrip("0").rstrip(".") + units[unit_idx]
         return f"{self._hidden_prefix(int(size_bytes))}{human}"
+
+    def _on_auto_scan_changed(self, settings, _key):
+        try:
+            enabled = settings.get_boolean("auto-scan")
+        except Exception as e:
+            logger.warning(f"Failed to read auto-scan setting: {e}")
+            return
+
+        if enabled == FolderSize._scan_enabled:
+            return
+
+        FolderSize._scan_enabled = enabled
+        if not FolderSize._scan_enabled:
+            self._stop_all_jobs()
+        else:
+            self._queue_pending_scans()
 
     # ========= Menü-Teil neu =========
 
