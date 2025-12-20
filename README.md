@@ -1,5 +1,7 @@
 # Folder Size (GNOME Shell + Nautilus)
 
+![Release](https://img.shields.io/github/v/release/shell-extensions/foldersize?sort=semver)
+
 Shows folder sizes in Nautilus list view and context menus. The GNOME Shell part manages the Nautilus Python hook so the file manager extension appears when the Shell extension is enabled and is removed when it is disabled.
 
 ## Requirements

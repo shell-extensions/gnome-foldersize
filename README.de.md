@@ -1,5 +1,7 @@
 # Folder Size (GNOME Shell + Nautilus)
 
+![Release](https://img.shields.io/github/v/release/shell-extensions/foldersize?sort=semver)
+
 Zeigt Ordnergroessen in der Nautilus Listenansicht und im Kontextmenue. Die GNOME-Shell-Erweiterung verwaltet den Nautilus-Python-Hook: beim Aktivieren wird der Symlink angelegt, beim Deaktivieren entfernt.
 
 ## Voraussetzungen

@@ -1,5 +1,7 @@
 # Folder Size (GNOME Shell + Nautilus)
 
+![Release](https://img.shields.io/github/v/release/shell-extensions/foldersize?sort=semver)
+
 Muestra el tamano de carpetas en la vista de lista y menus de Nautilus. La parte de GNOME Shell administra el hook de Python en Nautilus: al activar crea el symlink y al desactivar lo elimina.
 
 ## Requisitos
