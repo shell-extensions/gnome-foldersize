@@ -3,7 +3,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
-import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 const NAUTILUS_EXT_DIR = GLib.build_filenamev([
     GLib.get_home_dir(),
@@ -16,11 +16,10 @@ const NAUTILUS_LINK_NAME = 'foldersize.py';
 const PYTHON_FILENAMES = ['foldersize', 'folder_size'];
 const PY_CACHE_DIR = GLib.build_filenamev([NAUTILUS_EXT_DIR, '__pycache__']);
 const QS_TOGGLE_ICON = 'folder-symbolic';
-const QS_TOGGLE_LABEL = _('Auto scan');
 
 const FolderSizeQuickSettings = GObject.registerClass(
 class FolderSizeQuickSettings extends QuickSettings.SystemIndicator {
-    _init(settings) {
+    _init(settings, toggleLabel) {
         super._init();
 
         this._settings = settings;
@@ -28,7 +27,7 @@ class FolderSizeQuickSettings extends QuickSettings.SystemIndicator {
         this._indicator.icon_name = QS_TOGGLE_ICON;
 
         this._toggle = new QuickSettings.QuickToggle({
-            title: QS_TOGGLE_LABEL,
+            title: toggleLabel || 'Auto scan',
             iconName: QS_TOGGLE_ICON,
             toggleMode: true,
         });
@@ -69,7 +68,8 @@ export default class FolderSizeExtension extends Extension {
     enable() {
         this._installNautilusHook();
         this._settings = this.getSettings();
-        this._indicator = new FolderSizeQuickSettings(this._settings);
+        const toggleLabel = this.gettext('Auto scan');
+        this._indicator = new FolderSizeQuickSettings(this._settings, toggleLabel);
 
         Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
     }
