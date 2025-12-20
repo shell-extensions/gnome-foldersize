@@ -261,7 +261,14 @@ class FolderSize(GObject.GObject,
             return
 
         if not FolderSize._scan_enabled:
-            file.add_string_attribute('folder_size', self._disabled_display(path))
+            display = self._disabled_display(path)
+            with FolderSize._file_refs_lock:
+                FolderSize._file_refs[path] = file
+            with FolderSize._cache_lock:
+                if path not in FolderSize._cache:
+                    FolderSize._cache[path] = (time.time(), "", False, None, False, None)
+                    self._evict_cache_if_needed()
+            file.add_string_attribute('folder_size', display)
             return
 
         now = time.time()
@@ -461,6 +468,25 @@ class FolderSize(GObject.GObject,
                         logger.warning(f"Failed to stop process for {path}: {e}")
                 FolderSize._cache[path] = (ts, size, False, None, False, start_time)
 
+    def _queue_pending_scans(self):
+        now = time.time()
+        pending = []
+
+        with FolderSize._cache_lock:
+            for path, (ts, size, running, proc, queued, start_time) in list(FolderSize._cache.items()):
+                if running or queued:
+                    continue
+                if not size or (now - ts) >= CACHE_TTL:
+                    pending.append(path)
+
+        for path in pending:
+            with FolderSize._file_refs_lock:
+                ref_file = FolderSize._file_refs.get(path)
+            if not ref_file:
+                continue
+            GLib.idle_add(_update_file_attribute, ref_file, 'folder_size', ICON_WAITING)
+            self._enqueue_job(path, ref_file, priority=False)
+
     def _is_mountpoint(self, path):
         if not CFG["skip_mountpoints"]:
             return False
@@ -486,6 +512,8 @@ class FolderSize(GObject.GObject,
                 logger.warning(f"Failed to save auto-scan setting: {e}")
         if not FolderSize._scan_enabled:
             self._stop_all_jobs()
+        else:
+            self._queue_pending_scans()
 
     def _disabled_display(self, path):
         with FolderSize._cache_lock:
