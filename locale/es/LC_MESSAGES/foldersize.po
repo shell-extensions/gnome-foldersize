@@ -1,0 +1,97 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: foldersize 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es\n"
+
+#: foldersize.py
+msgid "Folder size"
+msgstr "Tamaño de carpeta"
+
+#: foldersize.py
+msgid "Recalculate folder size"
+msgstr "Recalcular tamaño de carpeta"
+
+#: foldersize.py
+msgid "Recalculate folder sizes"
+msgstr "Recalcular tamaños de carpeta"
+
+#: foldersize.py
+msgid "Abort running calculation and start immediately (priority)"
+msgstr "Cancelar cálculo en ejecución e iniciar de inmediato (prioridad)"
+
+#: foldersize.py
+msgid "Async folder size calculation with cache, queue and status icons"
+msgstr "Cálculo asíncrono del tamaño de carpetas con caché, cola e iconos de estado"
+
+#: foldersize.py
+msgid "⚠️ Error"
+msgstr "⚠️ Error"
+
+#: foldersize.py
+msgid "⏰ Timeout"
+msgstr "⏰ Tiempo de espera agotado"
+
+#: foldersize.py
+msgid "Disable folder size scanning"
+msgstr "Desactivar el escaneo de tamaño de carpetas"
+
+#: foldersize.py
+msgid "Enable folder size scanning"
+msgstr "Activar el escaneo de tamaño de carpetas"
+
+#: foldersize.py
+msgid "Toggle automatic folder size calculation"
+msgstr "Conmutar el cálculo automático del tamaño de carpetas"
+
+#: prefs.js
+msgid "General"
+msgstr "General"
+
+#: prefs.js
+msgid "Cache TTL (s)"
+msgstr "TTL de caché (s)"
+
+#: prefs.js
+msgid "Max workers"
+msgstr "Máximo de trabajadores"
+
+#: prefs.js
+msgid "du timeout (s)"
+msgstr "Tiempo de espera de du (s)"
+
+#: prefs.js
+msgid "Queue timeout (s)"
+msgstr "Tiempo de espera de la cola (s)"
+
+#: prefs.js
+msgid "Display"
+msgstr "Visualización"
+
+#: prefs.js
+msgid "Decimal places"
+msgstr "Decimales"
+
+#: prefs.js
+msgid "Binary units (KiB/MiB)"
+msgstr "Unidades binarias (KiB/MiB)"
+
+#: prefs.js
+msgid "Behavior"
+msgstr "Comportamiento"
+
+#: prefs.js
+msgid "Auto scan"
+msgstr "Escaneo automático"
+
+#: prefs.js
+msgid "Skip other mountpoints"
+msgstr "Omitir otros puntos de montaje"
+
+#: prefs.js
+msgid "Rotate interval (s)"
+msgstr "Intervalo de rotación (s)"
+
+#: prefs.js
+msgid "Long job threshold (s)"
+msgstr "Umbral de tarea larga (s)"

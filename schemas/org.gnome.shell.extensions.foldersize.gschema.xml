@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.foldersize" path="/org/gnome/shell/extensions/foldersize/">
+    <key name="cache-ttl" type="i">
+      <default>3600</default>
+      <summary>Cache TTL in seconds</summary>
+      <description>How long a computed folder size should be cached.</description>
+    </key>
+    <key name="max-workers" type="i">
+      <default>10</default>
+      <summary>Maximum parallel du workers</summary>
+      <description>Maximum number of concurrent du processes.</description>
+    </key>
+    <key name="du-timeout" type="i">
+      <default>1800</default>
+      <summary>du timeout in seconds</summary>
+      <description>Timeout for each du invocation.</description>
+    </key>
+    <key name="skip-mountpoints" type="b">
+      <default>true</default>
+      <summary>Skip other mountpoints</summary>
+      <description>Stay on the current filesystem when calculating sizes.</description>
+    </key>
+    <key name="queue-timeout" type="i">
+      <default>300</default>
+      <summary>Queue timeout in seconds</summary>
+      <description>Requeue jobs that have been waiting longer than this.</description>
+    </key>
+    <key name="rotate-interval" type="i">
+      <default>10</default>
+      <summary>Rotation interval</summary>
+      <description>Interval in seconds for rotating status symbols.</description>
+    </key>
+    <key name="long-job-threshold" type="i">
+      <default>300</default>
+      <summary>Long job threshold</summary>
+      <description>Seconds after which a running job is considered long-running.</description>
+    </key>
+    <key name="decimal-places" type="i">
+      <default>1</default>
+      <summary>Decimal places</summary>
+      <description>Number of decimal places for human-readable sizes.</description>
+    </key>
+    <key name="binary-units" type="b">
+      <default>true</default>
+      <summary>Use binary units</summary>
+      <description>Use 1024-based units (KiB, MiB) instead of decimal.</description>
+    </key>
+    <key name="auto-scan" type="b">
+      <default>true</default>
+      <summary>Automatically scan folder sizes</summary>
+      <description>Whether the extension should scan folder sizes automatically.</description>
+    </key>
+  </schema>
+</schemalist>
