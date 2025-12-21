@@ -51,5 +51,10 @@
       <summary>Automatically scan folder sizes</summary>
       <description>Whether the extension should scan folder sizes automatically.</description>
     </key>
+    <key name="show-quick-settings" type="b">
+      <default>true</default>
+      <summary>Show Quick Settings toggle</summary>
+      <description>Whether to show the auto scan toggle in the GNOME Shell Quick Settings menu.</description>
+    </key>
   </schema>
 </schemalist>

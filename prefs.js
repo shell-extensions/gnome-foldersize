@@ -31,6 +31,7 @@ export default class FolderSizePrefs extends ExtensionPreferences {
         page.add(behaviorGroup);
 
         behaviorGroup.add(this._switchRow(settings, _('Auto scan'), 'auto-scan'));
+        behaviorGroup.add(this._switchRow(settings, _('Show Quick Settings toggle'), 'show-quick-settings'));
         behaviorGroup.add(this._switchRow(settings, _('Skip other mountpoints'), 'skip-mountpoints'));
         behaviorGroup.add(this._spinRow(settings, _('Rotate interval (s)'), 'rotate-interval', 2, 60, 1));
         behaviorGroup.add(this._spinRow(settings, _('Long job threshold (s)'), 'long-job-threshold', 10, 3600, 10));
