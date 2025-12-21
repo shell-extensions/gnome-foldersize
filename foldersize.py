@@ -524,6 +524,41 @@ class FolderSize(GObject.GObject,
         else:
             self._queue_pending_scans()
 
+    def _get_quick_settings_visible(self):
+        if not GSETTINGS:
+            return True
+        try:
+            return GSETTINGS.get_boolean("show-quick-settings")
+        except Exception as e:
+            logger.warning(f"Failed to read show-quick-settings setting: {e}")
+            return True
+
+    def _toggle_quick_settings(self, *_args):
+        if not GSETTINGS:
+            logger.warning("GSettings not available for show-quick-settings")
+            return
+        try:
+            visible = self._get_quick_settings_visible()
+            GSETTINGS.set_boolean("show-quick-settings", not visible)
+        except Exception as e:
+            logger.warning(f"Failed to save show-quick-settings setting: {e}")
+
+    def _quick_settings_menu_label(self):
+        if self._get_quick_settings_visible():
+            return _("Hide Folder Size Quick Settings toggle")
+        return _("Show Folder Size Quick Settings toggle")
+
+    def _quick_settings_menu_item(self, name):
+        if not GSETTINGS:
+            return None
+        item = Nautilus.MenuItem(
+            name=name,
+            label=self._quick_settings_menu_label(),
+            tip=_("Show or hide the Folder Size Quick Settings toggle.")
+        )
+        item.connect("activate", self._toggle_quick_settings)
+        return item
+
     def _disabled_display(self, path):
         with FolderSize._cache_lock:
             cached = FolderSize._cache.get(path)
@@ -611,30 +646,15 @@ class FolderSize(GObject.GObject,
             item.connect("activate", self._recalc_selected, dir_files)
             items.append(item)
 
-        toggle_label = (_("Disable folder size scanning")
-                        if FolderSize._scan_enabled
-                        else _("Enable folder size scanning"))
-        toggle_item = Nautilus.MenuItem(
-            name="FolderSize::ToggleScan",
-            label=toggle_label,
-            tip=_("Toggle automatic folder size calculation")
-        )
-        toggle_item.connect("activate", self._toggle_scan)
-        items.append(toggle_item)
+        qs_item = self._quick_settings_menu_item("FolderSize::ToggleQuickSettings")
+        if qs_item:
+            items.append(qs_item)
 
         return items
 
     def get_background_items(self, *args):
-        toggle_label = (_("Disable folder size scanning")
-                        if FolderSize._scan_enabled
-                        else _("Enable folder size scanning"))
-        toggle_item = Nautilus.MenuItem(
-            name="FolderSize::ToggleScanBackground",
-            label=toggle_label,
-            tip=_("Toggle automatic folder size calculation")
-        )
-        toggle_item.connect("activate", self._toggle_scan)
-        return [toggle_item]
+        qs_item = self._quick_settings_menu_item("FolderSize::ToggleQuickSettingsBackground")
+        return [qs_item] if qs_item else []
 
     def _recalc_selected(self, _menu, dir_files):
         """

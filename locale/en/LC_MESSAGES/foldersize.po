@@ -4,6 +4,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: en\n"
 
+#: extension.js
+msgid "Folder Size: Auto scan"
+msgstr "Folder Size: Auto scan"
+
 #: foldersize.py
 msgid "Folder size"
 msgstr "Folder size"
@@ -44,6 +48,18 @@ msgstr "Enable folder size scanning"
 msgid "Toggle automatic folder size calculation"
 msgstr "Toggle automatic folder size calculation"
 
+#: foldersize.py
+msgid "Show Folder Size Quick Settings toggle"
+msgstr "Show Folder Size Quick Settings toggle"
+
+#: foldersize.py
+msgid "Hide Folder Size Quick Settings toggle"
+msgstr "Hide Folder Size Quick Settings toggle"
+
+#: foldersize.py
+msgid "Show or hide the Folder Size Quick Settings toggle."
+msgstr "Show or hide the Folder Size Quick Settings toggle."
+
 #: prefs.js
 msgid "General"
 msgstr "General"
@@ -83,6 +99,10 @@ msgstr "Behavior"
 #: prefs.js
 msgid "Auto scan"
 msgstr "Auto scan"
+
+#: prefs.js
+msgid "Show Quick Settings toggle"
+msgstr "Show Quick Settings toggle"
 
 #: prefs.js
 msgid "Skip other mountpoints"

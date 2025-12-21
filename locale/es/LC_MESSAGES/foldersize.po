@@ -4,6 +4,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
 
+#: extension.js
+msgid "Folder Size: Auto scan"
+msgstr "Tamaño de carpeta: escaneo automático"
+
 #: foldersize.py
 msgid "Folder size"
 msgstr "Tamaño de carpeta"
@@ -44,6 +48,18 @@ msgstr "Activar el escaneo de tamaño de carpetas"
 msgid "Toggle automatic folder size calculation"
 msgstr "Conmutar el cálculo automático del tamaño de carpetas"
 
+#: foldersize.py
+msgid "Show Folder Size Quick Settings toggle"
+msgstr "Mostrar interruptor de Ajustes rápidos para Tamaño de carpeta"
+
+#: foldersize.py
+msgid "Hide Folder Size Quick Settings toggle"
+msgstr "Ocultar interruptor de Ajustes rápidos para Tamaño de carpeta"
+
+#: foldersize.py
+msgid "Show or hide the Folder Size Quick Settings toggle."
+msgstr "Mostrar u ocultar el interruptor de Ajustes rápidos para Tamaño de carpeta."
+
 #: prefs.js
 msgid "General"
 msgstr "General"
@@ -83,6 +99,10 @@ msgstr "Comportamiento"
 #: prefs.js
 msgid "Auto scan"
 msgstr "Escaneo automático"
+
+#: prefs.js
+msgid "Show Quick Settings toggle"
+msgstr "Mostrar interruptor de Ajustes rápidos"
 
 #: prefs.js
 msgid "Skip other mountpoints"

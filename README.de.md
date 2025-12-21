@@ -32,4 +32,5 @@ Erweiterungsverzeichnis ersetzen, `glib-compile-schemas` erneut ausführen, GNOM
 
 ## Hinweise
 - Einstellungen: GSettings Schema `org.gnome.shell.extensions.foldersize`, Fallback-Datei `~/.config/foldersize.conf`.
+- Der Quick-Settings-Schalter kann in den Einstellungen (Schnelleinstellungen-Schalter anzeigen) oder über das Nautilus-Erweiterungsmenü ausgeblendet werden.
 - Wenn Nautilus nach Deaktivierung noch aktiv ist: `nautilus -q`.

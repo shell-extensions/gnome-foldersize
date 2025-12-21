@@ -27,7 +27,7 @@ class FolderSizeQuickSettings extends QuickSettings.SystemIndicator {
         this._indicator.icon_name = QS_TOGGLE_ICON;
 
         this._toggle = new QuickSettings.QuickToggle({
-            title: toggleLabel || 'Auto scan',
+            title: toggleLabel || 'Folder Size: Auto scan',
             iconName: QS_TOGGLE_ICON,
             toggleMode: true,
         });
@@ -63,28 +63,60 @@ export default class FolderSizeExtension extends Extension {
         super(metadata);
         this._indicator = null;
         this._settings = null;
+        this._settingsSignals = [];
     }
 
     enable() {
         this._installNautilusHook();
         this._settings = this.getSettings();
-        const toggleLabel = this.gettext('Auto scan');
-        this._indicator = new FolderSizeQuickSettings(this._settings, toggleLabel);
-
-        Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
+        this._settingsSignals = [
+            this._settings.connect('changed::show-quick-settings', () => {
+                this._syncQuickSettings();
+            }),
+        ];
+        this._syncQuickSettings();
     }
 
     disable() {
-        if (this._indicator) {
-            const qs = Main.panel?.statusArea?.quickSettings;
-            if (qs?.removeExternalIndicator)
-                qs.removeExternalIndicator(this._indicator);
-
-            this._indicator.destroy();
-            this._indicator = null;
+        if (this._settings) {
+            this._settingsSignals.forEach(id => this._settings.disconnect(id));
         }
+        this._settingsSignals = [];
+        this._removeQuickSettings();
         this._settings = null;
         this._removeNautilusHook();
+    }
+
+    _syncQuickSettings() {
+        if (!this._settings) {
+            return;
+        }
+
+        const shouldShow = this._settings.get_boolean('show-quick-settings');
+
+        if (shouldShow) {
+            if (!this._indicator) {
+                const toggleLabel = this.gettext('Folder Size: Auto scan');
+                this._indicator = new FolderSizeQuickSettings(this._settings, toggleLabel);
+                Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
+            }
+            return;
+        }
+
+        this._removeQuickSettings();
+    }
+
+    _removeQuickSettings() {
+        if (!this._indicator) {
+            return;
+        }
+
+        const qs = Main.panel?.statusArea?.quickSettings;
+        if (qs?.removeExternalIndicator)
+            qs.removeExternalIndicator(this._indicator);
+
+        this._indicator.destroy();
+        this._indicator = null;
     }
 
     _installNautilusHook() {

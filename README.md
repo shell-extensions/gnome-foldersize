@@ -32,4 +32,5 @@ Replace the extension directory with the new version, re-run `glib-compile-schem
 
 ## Notes
 - Settings are stored in GSettings schema `org.gnome.shell.extensions.foldersize`. Fallback config file: `~/.config/foldersize.conf`.
+- Quick Settings toggle can be hidden in Preferences (Show Quick Settings toggle) or from the Nautilus extension menu.
 - If Nautilus still shows the old version after disable/enable, run `nautilus -q`.

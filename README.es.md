@@ -32,4 +32,5 @@ Reemplazar el directorio, ejecutar `glib-compile-schemas`, reiniciar GNOME Shell
 
 ## Notas
 - Ajustes en el esquema GSettings `org.gnome.shell.extensions.foldersize`. Fallback: `~/.config/foldersize.conf`.
+- El interruptor de Ajustes rápidos se puede ocultar en Preferencias (Mostrar interruptor de Ajustes rápidos) o desde el menú de extensiones de Nautilus.
 - Si Nautilus sigue mostrando la extension tras desactivarla, ejecutar `nautilus -q`.
