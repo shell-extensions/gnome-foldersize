@@ -19,15 +19,16 @@ const QS_TOGGLE_ICON = 'folder-symbolic';
 
 const FolderSizeQuickSettings = GObject.registerClass(
 class FolderSizeQuickSettings extends QuickSettings.SystemIndicator {
-    _init(settings, toggleLabel) {
+    _init(settings, labels) {
         super._init();
 
         this._settings = settings;
+        this._labels = labels;
         this._indicator = this._addIndicator();
         this._indicator.icon_name = QS_TOGGLE_ICON;
 
         this._toggle = new QuickSettings.QuickToggle({
-            title: toggleLabel || 'Folder Size: Auto scan',
+            title: labels?.title || 'Folder Size',
             iconName: QS_TOGGLE_ICON,
             toggleMode: true,
         });
@@ -45,10 +46,33 @@ class FolderSizeQuickSettings extends QuickSettings.SystemIndicator {
             Gio.SettingsBindFlags.DEFAULT,
         );
 
+        this._checkedSignalId = this._toggle.connect('notify::checked', () => {
+            this._syncToggleSubtitle();
+        });
+        this._syncToggleSubtitle();
+
         this.quickSettingsItems.push(this._toggle);
     }
 
+    _syncToggleSubtitle() {
+        if (!this._toggle) {
+            return;
+        }
+
+        const enabled = this._toggle.checked;
+        const label = enabled ? this._labels?.statusOn : this._labels?.statusOff;
+
+        if (label) {
+            this._toggle.subtitle = label;
+        }
+    }
+
     destroy() {
+        if (this._toggle && this._checkedSignalId) {
+            this._toggle.disconnect(this._checkedSignalId);
+            this._checkedSignalId = null;
+        }
+
         this.quickSettingsItems.forEach(item => {
             if (item?.destroy)
                 item.destroy();
@@ -96,8 +120,12 @@ export default class FolderSizeExtension extends Extension {
 
         if (shouldShow) {
             if (!this._indicator) {
-                const toggleLabel = this.gettext('Folder Size: Auto scan');
-                this._indicator = new FolderSizeQuickSettings(this._settings, toggleLabel);
+                const labels = {
+                    title: this.gettext('Folder Size'),
+                    statusOn: this.gettext('Scan on'),
+                    statusOff: this.gettext('Scan off'),
+                };
+                this._indicator = new FolderSizeQuickSettings(this._settings, labels);
                 Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
             }
             return;

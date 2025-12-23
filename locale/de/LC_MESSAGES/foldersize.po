@@ -5,8 +5,16 @@ msgstr ""
 "Language: de\n"
 
 #: extension.js
-msgid "Folder Size: Auto scan"
-msgstr "Ordnergröße: Automatischer Scan"
+msgid "Folder Size"
+msgstr "Ordnergröße"
+
+#: extension.js
+msgid "Scan on"
+msgstr "Scan an"
+
+#: extension.js
+msgid "Scan off"
+msgstr "Scan aus"
 
 #: foldersize.py
 msgid "Folder size"
