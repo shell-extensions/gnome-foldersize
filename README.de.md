@@ -14,23 +14,23 @@ Zeigt Ordnergrößen in der Nautilus-Listenansicht und im Kontextmenü. Die GNOM
 - `du` im PATH (coreutils)
 
 ## Installation (nur aktueller Benutzer)
-1) Ordner nach `~/.local/share/gnome-shell/extensions/foldersize@pappmann.com` kopieren.
-2) Schemas kompilieren: `glib-compile-schemas ~/.local/share/gnome-shell/extensions/foldersize@pappmann.com/schemas`.
+1) Ordner nach `~/.local/share/gnome-shell/extensions/foldersize@yurij.de` kopieren.
+2) Schemas kompilieren: `glib-compile-schemas ~/.local/share/gnome-shell/extensions/foldersize@yurij.de/schemas`.
 3) GNOME Shell neu starten (Wayland: ab- und anmelden; X11: Alt+F2, `r`).
-4) Aktivieren: `gnome-extensions enable foldersize@pappmann.com` oder über die Extensions-App. Das legt den Nautilus-Symlink automatisch an.
+4) Aktivieren: `gnome-extensions enable foldersize@yurij.de` oder über die Extensions-App. Das legt den Nautilus-Symlink automatisch an.
 5) Nautilus neu starten: `nautilus -q`.
 
 ## Deaktivieren und Entfernen
-- Deaktivieren in Extensions oder mit `gnome-extensions disable foldersize@pappmann.com`. Dadurch wird der Nautilus-Symlink gelöscht und passende `__pycache__`-Einträge bereinigt; Nautilus danach neu starten.
-- Vollständig entfernen: `~/.local/share/gnome-shell/extensions/foldersize@pappmann.com` löschen.
+- Deaktivieren in Extensions oder mit `gnome-extensions disable foldersize@yurij.de`. Dadurch wird der Nautilus-Symlink gelöscht und passende `__pycache__`-Einträge bereinigt; Nautilus danach neu starten.
+- Vollständig entfernen: `~/.local/share/gnome-shell/extensions/foldersize@yurij.de` löschen.
 
 ## Übersetzungen
-`make -C ~/.local/share/gnome-shell/extensions/foldersize@pappmann.com` ausführen, um `.po` zu `.mo` zu kompilieren.
+`make -C ~/.local/share/gnome-shell/extensions/foldersize@yurij.de` ausführen, um `.po` zu `.mo` zu kompilieren.
 
 ## Aktualisieren
 Erweiterungsverzeichnis ersetzen, `glib-compile-schemas` erneut ausführen, GNOME Shell neu starten, Nautilus neu starten.
 
 ## Hinweise
 - Einstellungen: GSettings Schema `org.gnome.shell.extensions.foldersize`, Fallback-Datei `~/.config/foldersize.conf`.
-- Der Quick-Settings-Schalter kann in den Einstellungen (Schnelleinstellungen-Schalter anzeigen) oder über das Nautilus-Erweiterungsmenü ausgeblendet werden.
+- Der Quick-Settings-Schalter kann in den Einstellungen (Schnelleinstellungen-Schalter anzeigen) ausgeblendet werden.
 - Wenn Nautilus nach Deaktivierung noch aktiv ist: `nautilus -q`.

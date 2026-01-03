@@ -56,18 +56,6 @@ msgstr "Activar el escaneo de tamaño de carpetas"
 msgid "Toggle automatic folder size calculation"
 msgstr "Conmutar el cálculo automático del tamaño de carpetas"
 
-#: foldersize.py
-msgid "Show Folder Size Quick Settings toggle"
-msgstr "Mostrar interruptor de Ajustes rápidos para Tamaño de carpeta"
-
-#: foldersize.py
-msgid "Hide Folder Size Quick Settings toggle"
-msgstr "Ocultar interruptor de Ajustes rápidos para Tamaño de carpeta"
-
-#: foldersize.py
-msgid "Show or hide the Folder Size Quick Settings toggle."
-msgstr "Mostrar u ocultar el interruptor de Ajustes rápidos para Tamaño de carpeta."
-
 #: prefs.js
 msgid "General"
 msgstr "General"

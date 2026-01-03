@@ -56,18 +56,6 @@ msgstr "Ordnergrößen-Scan aktivieren"
 msgid "Toggle automatic folder size calculation"
 msgstr "Automatische Ordnergrößenberechnung umschalten"
 
-#: foldersize.py
-msgid "Show Folder Size Quick Settings toggle"
-msgstr "Schnelleinstellungen-Schalter für Ordnergröße anzeigen"
-
-#: foldersize.py
-msgid "Hide Folder Size Quick Settings toggle"
-msgstr "Schnelleinstellungen-Schalter für Ordnergröße ausblenden"
-
-#: foldersize.py
-msgid "Show or hide the Folder Size Quick Settings toggle."
-msgstr "Schnelleinstellungen-Schalter für Ordnergröße anzeigen oder ausblenden."
-
 #: prefs.js
 msgid "General"
 msgstr "Allgemein"

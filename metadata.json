@@ -1,9 +1,9 @@
 {
-  "uuid": "foldersize@pappmann.com",
+  "uuid": "foldersize@yurij.de",
   "name": "Folder Size",
   "description": "Nautilus folder size extension with async jobs and multilingual support.",
   "gettext-domain": "foldersize",
-  "version": 2,
+  "version": 3,
   "shell-version": ["45", "46", "47", "48"],
   "settings-schema": "org.gnome.shell.extensions.foldersize",
   "url": "https://github.com/shell-extensions/foldersize"

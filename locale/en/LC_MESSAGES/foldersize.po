@@ -56,18 +56,6 @@ msgstr "Enable folder size scanning"
 msgid "Toggle automatic folder size calculation"
 msgstr "Toggle automatic folder size calculation"
 
-#: foldersize.py
-msgid "Show Folder Size Quick Settings toggle"
-msgstr "Show Folder Size Quick Settings toggle"
-
-#: foldersize.py
-msgid "Hide Folder Size Quick Settings toggle"
-msgstr "Hide Folder Size Quick Settings toggle"
-
-#: foldersize.py
-msgid "Show or hide the Folder Size Quick Settings toggle."
-msgstr "Show or hide the Folder Size Quick Settings toggle."
-
 #: prefs.js
 msgid "General"
 msgstr "General"
