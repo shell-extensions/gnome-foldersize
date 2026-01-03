@@ -1,7 +1,7 @@
 {
   "uuid": "foldersize@yurij.de",
   "name": "Folder Size",
-  "description": "Nautilus folder size extension with async jobs and multilingual support.",
+  "description": "GNOME folder size extension with async jobs and multilingual support.",
   "gettext-domain": "foldersize",
   "version": 3,
   "shell-version": ["45", "46", "47", "48"],
